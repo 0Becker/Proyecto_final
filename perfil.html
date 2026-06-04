@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Mi Perfil
+    </title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:Arial,sans-serif;
+            background:#f3f6fb;
+            color:#111827;
+        }
+
+        .container{
+            max-width:1400px;
+            margin:50px auto;
+            padding:0 20px;
+        }
+
+        .profile-layout{
+            display:grid;
+            grid-template-columns:320px 1fr;
+            gap:30px;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar{
+            background:white;
+            border-radius:30px;
+            padding:35px;
+            height:fit-content;
+            box-shadow:0 15px 40px rgba(0,0,0,.06);
+        }
+
+        .avatar{
+            width:120px;
+            height:120px;
+            background:#6366f1;
+            color:white;
+            font-size:42px;
+            font-weight:bold;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            margin:0 auto 20px;
+        }
+
+        .username{
+            text-align:center;
+            font-size:22px;
+            font-weight:bold;
+            margin-bottom:5px;
+        }
+
+        .email{
+            text-align:center;
+            color:#6b7280;
+            font-size:14px;
+            margin-bottom:30px;
+        }
+
+        .menu-btn{
+            width:100%;
+            padding:15px 20px;
+            background:none;
+            border:none;
+            text-align:left;
+            font-size:16px;
+            font-weight:500;
+            color:#4b5563;
+            cursor:pointer;
+            border-radius:15px;
+            margin-bottom:10px;
+            display:flex;
+            align-items:center;
+            gap:15px;
+            transition:.2s;
+        }
+
+        .menu-btn.active, .menu-btn:hover{
+            background:#e0e7ff;
+            color:#4f46e5;
+        }
+
+        .menu-btn.logout-btn{
+            color:#ef4444;
+            margin-top:20px;
+        }
+
+        .menu-btn.logout-btn:hover{
+            background:#fee2e2;
+        }
+
+        /* CONTENT */
+
+        .content-area{
+            display:flex;
+            flex-direction:column;
+            gap:35px;
+        }
+
+        .card{
+            background:white;
+            border-radius:30px;
+            padding:40px;
+            box-shadow:0 15px 40px rgba(0,0,0,.06);
+        }
+
+        .card-title{
+            font-size:24px;
+            font-weight:bold;
+            margin-bottom:30px;
+        }
+
+        /* FORM */
+
+        .profile-form .form-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:25px;
+            margin-bottom:30px;
+        }
+
+        .form-group{
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+        }
+
+        .form-group label{
+            font-size:14px;
+            font-weight:600;
+            color:#374151;
+        }
+
+        .form-group input{
+            padding:16px;
+            border:1px solid #e5e7eb;
+            border-radius:15px;
+            background:#f9fafb;
+            font-size:15px;
+            outline:none;
+            transition:.2s;
+        }
+
+        .form-group input:focus{
+            border-color:#6366f1;
+            background:white;
+        }
+
+        .save-btn{
+            background:#6366f1;
+            color:white;
+            border:none;
+            padding:16px 35px;
+            font-size:16px;
+            font-weight:600;
+            border-radius:15px;
+            cursor:pointer;
+            transition:.2s;
+        }
+
+        .save-btn:hover{
+            background:#4f46e5;
+        }
+
+        /* FAVORITES GRID */
+
+        .favorites-grid{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:25px;
+            margin-bottom:30px;
+        }
+
+        .fav-card{
+            border:1px solid #f3f4f6;
+            border-radius:20px;
+            padding:20px;
+            text-align:center;
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+        }
+
+        .fav-img-wrap{
+            height:140px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            margin-bottom:15px;
+        }
+
+        .fav-img-wrap img{
+            max-height:100%;
+            max-width:100%;
+            object-fit:contain;
+        }
+
+        .fav-title{
+            font-size:14px;
+            font-weight:600;
+            color:#1f2937;
+            margin-bottom:10px;
+            display:-webkit-box;
+            -webkit-line-clamp:2;
+            -webkit-box-orient:vertical;
+            overflow:hidden;
+            height:40px;
+        }
+
+        .fav-price{
+            font-size:16px;
+            font-weight:bold;
+            color:#111827;
+        }
+
+        .load-more-btn{
+            background:white;
+            border:2px solid #e5e7eb;
+            color:#4b5563;
+            padding:14px 30px;
+            font-size:15px;
+            font-weight:600;
+            border-radius:15px;
+            cursor:pointer;
+            display:block;
+            margin:0 auto;
+            transition:.2s;
+        }
+
+        .load-more-btn:hover{
+            border-color:#6366f1;
+            color:#6366f1;
+        }
+
+        /* ORDERS */
+
+        .orders-list{
+            display:flex;
+            flex-direction:column;
+            gap:20px;
+        }
+
+        .order-card{
+            border:1px solid #e5e7eb;
+            border-radius:20px;
+            padding:25px;
+        }
+
+        .order-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            border-bottom:1px solid #f3f4f6;
+            padding-bottom:15px;
+            margin-bottom:15px;
+        }
+
+        .order-id{
+            font-size:16px;
+            font-weight:bold;
+        }
+
+        .order-date{
+            font-size:13px;
+            color:#6b7280;
+            margin-top:4px;
+        }
+
+        .status-badge{
+            background:#d1fae5;
+            color:#065f46;
+            padding:6px 14px;
+            border-radius:10px;
+            font-size:13px;
+            font-weight:600;
+        }
+
+        .order-items{
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+        }
+
+        .order-item-row{
+            display:flex;
+            justify-content:space-between;
+            font-size:14px;
+            color:#4b5563;
+        }
+
+    </style>
+
+</head>
+
+<body>
+<nav style="background: #0f172a; padding: 20px 0; position: sticky; top: 0; z-index: 100;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center;">
+    <div style="font-size: 24px; font-weight: 700; color: white; cursor: pointer; font-family: 'Inter', sans-serif;" onclick="window.location.href='index.html'">
+      Mini<span style="color: #6119e8;">Shop</span>
+    </div>
+  </div>
+</nav>
+    <div class="container">
+
+        <div class="profile-layout">
+
+            <aside class="sidebar">
+
+                <div class="avatar">J</div>
+
+                <h2 class="username" id="sidebar-username"></h2>
+
+                <p class="email" id="sidebar-email"></p>
+
+                <nav>
+
+                    <button class="menu-btn active">
+
+                        Mi perfil
+
+                    </button>
+
+                    <button class="menu-btn">
+
+                        Pedidos
+
+                    </button>
+
+                    <button class="menu-btn">
+
+                        Favoritos
+
+                    </button>
+
+                    <button class="menu-btn logout-btn" id="logoutBtn">
+
+                        Cerrar sesión
+
+                    </button>
+
+                </nav>
+
+            </aside>
+
+
+            <main class="content-area">
+
+                <section class="card" id="seccion-perfil">
+
+                    <h2 class="card-title">Editar perfil</h2>
+
+                    <form class="profile-form" id="profileForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>Nombre</label>
+
+                                <input type="text" id="firstName" value="john">
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Apellido</label>
+
+                                <input type="text" id="lastName" value="doe">
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Usuario</label>
+
+                                <input type="text" id="inputUsername" value="johnd">
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Email</label>
+
+                                <input type="email" id="inputEmail" value="john@gmail.com">
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Teléfono</label>
+
+                                <input type="text" id="phone" value="1-570-236-7033">
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Ciudad</label>
+
+                                <input type="text" id="city" value="kilcoole">
+
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="save-btn">
+
+                            Guardar cambios
+
+                        </button>
+
+                    </form>
+
+                </section>
+
+
+                <section class="card" id="seccion-favoritos">
+
+                    <h2 class="card-title">Favoritos</h2>
+
+                    <div class="favorites-grid" id="favoritesContainer">
+
+                        </div>
+
+                    <button class="load-more-btn" id="loadMoreBtn">
+
+                        Cargar más
+
+                    </button>
+
+                </section>
+
+
+                <section class="card" id="seccion-pedidos">
+
+                    <h2 class="card-title">Mis pedidos</h2>
+
+                    <div class="orders-list" id="ordersContainer">
+
+                        </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+    </div>
+
+<footer style="background: #0f172a; color: white; padding: 30px 0; margin-top: 60px; text-align: center; width: 100%; clear: both; font-family: 'Inter', sans-serif;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px; cursor: pointer; display: inline-block;" onclick="window.location.href='index.html'">
+      Mini<span style="color: #6119e8;">Shop</span>
+    </p>
+    <p style="color: #64748b; font-size: 14px;">&copy; 2026 Todos los derechos reservados.</p>
+  </div>
+</footer>
+<script>
+        let favoritosVisibles = 4;
+
+
+        async function getUser(){
+           
+            const loggedUsername = localStorage.getItem("activeUser") || "mor_2314"; 
+
+            try {
+                const response = await fetch("https://fakestoreapi.com/users");
+                if (!response.ok) throw new Error("No se pudieron cargar los usuarios de la API");
+                
+                const users = await response.json();
+
+                const usuarioEncontrado = users.find(u => u.username === loggedUsername);
+
+                if (usuarioEncontrado) {
+                    document.getElementById("firstName").value = usuarioEncontrado.name.firstname;
+                    document.getElementById("lastName").value = usuarioEncontrado.name.lastname;
+                    document.getElementById("inputUsername").value = usuarioEncontrado.username;
+                    document.getElementById("inputEmail").value = usuarioEncontrado.email;
+                    document.getElementById("phone").value = usuarioEncontrado.phone;
+                    document.getElementById("city").value = usuarioEncontrado.address.city;
+
+                    document.getElementById("sidebar-username").textContent = usuarioEncontrado.username;
+                    document.getElementById("sidebar-email").textContent = usuarioEncontrado.email;
+                    
+                    document.querySelector(".avatar").textContent = usuarioEncontrado.name.firstname.charAt(0).toUpperCase();
+                } else {
+                    console.warn("El usuario logueado no se encontró en la API. Usando datos locales.");
+                    document.getElementById("sidebar-username").textContent = loggedUsername;
+                }
+            } catch (error) {
+                console.error("Error al conectar con la FakeStore API:", error);
+            }
+        }
+
+
+        // ==================================
+        // FAVORITOS
+        // ==================================
+
+        async function getFavorites(){
+            const loggedUsername = localStorage.getItem("activeUser") || "mor_2314";
+            
+            const clavePersonalizada = `favoritos_${loggedUsername}`;
+
+            const lista = JSON.parse(localStorage.getItem(clavePersonalizada)) || [];
+            return lista;
+        }
+
+        function renderFavorites(favoritosArray){
+            const contenedor = document.getElementById("favoritesContainer");
+            if (!contenedor) return;
+
+            contenedor.innerHTML = "";
+
+            if (!favoritosArray || favoritosArray.length === 0) {
+                contenedor.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #6b7280; padding: 20px;">No tienes productos guardados en tus favoritos personalizados.</p>`;
+                document.getElementById("loadMoreBtn").style.display = "none";
+                return;
+            }
+
+            const visibles = favoritosArray.slice(0, favoritosVisibles);
+
+            visibles.forEach(producto => {
+                const card = document.createElement("div");
+                card.classList.add("fav-card");
+
+                card.innerHTML = `
+                    <div class="fav-img-wrap">
+                        <img src="${producto.image || producto.imagen}" alt="${producto.title || producto.nombre}">
+                    </div>
+                    <h3 class="fav-title" title="${producto.title || producto.nombre}">${producto.title || producto.nombre}</h3>
+                    <p class="fav-price">${producto.price || producto.precio}€</p>
+                `;
+                contenedor.appendChild(card);
+            });
+
+            if (favoritosArray.length <= favoritosVisibles) {
+                document.getElementById("loadMoreBtn").style.display = "none";
+            } else {
+                document.getElementById("loadMoreBtn").style.display = "block";
+            }
+        }
+
+        async function loadMoreFavorites(){
+            
+            favoritosVisibles += 4;
+            
+           
+            const listaOriginal = await getFavorites();
+            renderFavorites(listaOriginal);
+        }
+
+        function renderFavorites(favoritosArray){
+        
+            const contenedor = document.getElementById("favoritesContainer");
+            if (!contenedor) return;
+
+            contenedor.innerHTML = "";
+
+            if (!favoritosArray || favoritosArray.length === 0) {
+                contenedor.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #6b7280; padding: 20px;">No tienes productos guardados en favoritos.</p>`;
+                document.getElementById("loadMoreBtn").style.display = "none";
+                return;
+            }
+
+          
+            const visibles = favoritosArray.slice(0, favoritosVisibles);
+
+            visibles.forEach(producto => {
+                const card = document.createElement("div");
+                card.classList.add("fav-card");
+
+                card.innerHTML = `
+                    <div class="fav-img-wrap">
+                        <img src="${producto.image || producto.imagen}" alt="${producto.title || producto.nombre}">
+                    </div>
+                    <h3 class="fav-title" title="${producto.title || producto.nombre}">${producto.title || producto.nombre}</h3>
+                    <p class="fav-price">${producto.price || producto.precio}€</p>
+                `;
+                contenedor.appendChild(card);
+            });
+
+          
+            if (favoritosArray.length <= favoritosVisibles) {
+                document.getElementById("loadMoreBtn").style.display = "none";
+            } else {
+                document.getElementById("loadMoreBtn").style.display = "block";
+            }
+        }
+
+        async function loadMoreFavorites(){
+         
+            favoritosVisibles += 4;
+            const listaOriginal = await getFavorites();
+            renderFavorites(listaOriginal);
+        }
+
+
+        // ==================================
+        // PEDIDOS
+        // ==================================
+
+       async function getOrders(){
+            try {
+                const loggedUsername = localStorage.getItem("activeUser") || "mor_2314";
+                const resUsers = await fetch("https://fakestoreapi.com/users");
+                if (!resUsers.ok) throw new Error("Error al traer usuarios");
+                const users = await resUsers.json();
+                
+                const usuarioEncontrado = users.find(u => u.username === loggedUsername);
+                if (!usuarioEncontrado) return []; 
+
+                const userId = usuarioEncontrado.id;
+
+                const resCarts = await fetch(`https://fakestoreapi.com/carts/user/${userId}`);
+                if (!resCarts.ok) throw new Error("Error al traer carritos de la API");
+                const cartsData = await resCarts.json();
+
+                const resProducts = await fetch("https://fakestoreapi.com/products");
+                const allProducts = await resProducts.json();
+
+                const pedidosEstructurados = cartsData.map((cart, index) => {
+                    const itemsMapeados = cart.products.map(itemCart => {
+                        const infoProducto = allProducts.find(p => p.id === itemCart.productId);
+                        return {
+                            name: infoProducto ? infoProducto.title : `Producto ID #${itemCart.productId}`,
+                            qty: itemCart.quantity
+                        };
+                    });
+
+                    return {
+                        id: cart.id,
+                        date: new Date(cart.date).toISOString(),
+                        status: index === 0 ? "En camino" : "Entregado", 
+                        items: itemsMapeados
+                    };
+                });
+
+                return pedidosEstructurados;
+
+            } catch (error) {
+                console.error("Error al cargar pedidos dinámicos:", error);
+                return [];
+            }
+        }
+
+        async function renderOrders(orders){
+            const contenedor = document.getElementById("ordersContainer");
+            if (!contenedor) return;
+
+            contenedor.innerHTML = "";
+
+            if (!orders || orders.length === 0) {
+                contenedor.innerHTML = `<p style="text-align: center; color: #6b7280; padding: 20px;">Este usuario no registra ningún pedido anterior.</p>`;
+                return;
+            }
+
+            orders.forEach(pedido => {
+                const orderCard = document.createElement("div");
+                orderCard.classList.add("order-card");
+                let itemsHTML = "";
+                pedido.items.forEach(item => {
+                    itemsHTML += `
+                        <div class="order-item-row">
+                            <span>${item.name}</span>
+                            <strong>x${item.qty}</strong>
+                        </div>
+                    `;
+                });
+
+                orderCard.innerHTML = `
+                    <div class="order-header">
+                        <div>
+                            <p class="order-id">Pedido #${pedido.id}</p>
+                            <p class="order-date">${pedido.date}</p>
+                        </div>
+                        <span class="status-badge" style="background: ${pedido.status === 'En camino' ? '#fef3c7' : '#d1fae5'}; color: ${pedido.status === 'En camino' ? '#92400e' : '#065f46'};">
+                            ${pedido.status}
+                        </span>
+                    </div>
+                    <div class="order-items">
+                        ${itemsHTML}
+                    </div>
+                `;
+
+                contenedor.appendChild(orderCard);
+            });
+        }
+
+
+        // ==================================
+        // SESIÓN
+        // ==================================
+
+        function logout(){
+            sessionStorage.removeItem("token");
+            localStorage.removeItem("activeUser"); 
+            alert("Sesión cerrada correctamente.");
+            window.location.href = "index.html";
+        }
+
+
+        // ==================================
+        // EVENTOS
+        // ==================================
+
+        function initEvents(){
+            const botonesMenu = document.querySelectorAll(".sidebar nav .menu-btn:not(.logout-btn)");
+            const seccionPerfil = document.getElementById("seccion-perfil");
+            const seccionFavoritos = document.getElementById("seccion-favoritos");
+            const seccionPedidos = document.getElementById("seccion-pedidos");
+
+     
+
+            botonesMenu.forEach(boton => {
+                boton.addEventListener("click", () => {
+                    botonesMenu.forEach(b => b.classList.remove("active"));
+                    boton.classList.add("active");
+
+                    const textoBoton = boton.textContent.trim().toLowerCase();
+
+                    if (seccionPerfil) seccionPerfil.style.display = "none";
+                    if (seccionFavoritos) seccionFavoritos.style.display = "none";
+                    if (seccionPedidos) seccionPedidos.style.display = "none";
+
+                    if (textoBoton === "mi perfil") {
+                        if (seccionPerfil) seccionPerfil.style.display = "block";
+                    } else if (textoBoton === "favoritos") {
+                        if (seccionFavoritos) seccionFavoritos.style.display = "block";
+                    } else if (textoBoton === "pedidos") {
+                        if (seccionPedidos) seccionPedidos.style.display = "block";
+                    }
+                });
+            });
+
+
+            const form = document.getElementById("profileForm");
+            if (form) {
+                form.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    
+                    const nuevoUser = document.getElementById("inputUsername").value;
+                    localStorage.setItem("activeUser", nuevoUser);
+
+                    document.getElementById("sidebar-username").textContent = nuevoUser;
+                    document.getElementById("sidebar-email").textContent = document.getElementById("inputEmail").value;
+                    
+                    alert("¡Cambios del perfil guardados localmente!");
+                });
+            }
+
+            const btnCargar = document.getElementById("loadMoreBtn");
+            if (btnCargar) {
+                btnCargar.addEventListener("click", () => {
+                    loadMoreFavorites();
+                });
+            }
+
+            const btnLogout = document.getElementById("logoutBtn");
+            if (btnLogout) {
+                btnLogout.addEventListener("click", () => {
+                    logout();
+                });
+            }
+        }
+
+
+        // ==================================
+        // INIT
+        // ==================================
+
+       async function init(){
+
+            await getUser();
+
+            const favoritosUsuario = await getFavorites();
+            renderFavorites(favoritosUsuario);
+
+            const listaPedidos = await getOrders();
+            renderOrders(listaPedidos);
+
+            initEvents();
+
+        }
+
+        init();
+    </script>
+
+</body>
+
+</html>

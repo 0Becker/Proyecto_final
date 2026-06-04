@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Ecommerce</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        Mini<span>Shop</span>
+      </div>
+
+     <div class="nav-actions">
+        <div id="loggedOutActions">
+          <button class="account-btn">
+            Mi cuenta
+          </button>
+        </div>
+
+        <div id="loggedInActions" style="display: none; align-items: center; gap: 15px;">
+          <span id="navUsername" style="color: white; font-weight: 500;"></span>
+          <a href="perfil.html">
+            <button class="account-btn" style="background: var(--primary);">
+              Ver Detalles
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>
+        Descubre tu nuevo estilo
+      </h1>
+      <p>
+        Ecommerce realizado con JavaScript, Fetch API y GitHub.
+      </p>
+      <button>
+        Comprar ahora
+      </button>
+    </div>
+  </section>
+
+  <section class="controls">
+    <div class="controls-box">
+      <input type="text" id="searchInput" placeholder="Buscar productos...">
+
+      <select id="categoryFilter">
+        <option value="all">
+          Todas las categorías
+        </option>
+      </select>
+
+      <select id="sortSelect">
+        <option value="default">
+          Ordenar por
+        </option>
+        <option value="priceAsc">
+          Precio ↑
+        </option>
+        <option value="priceDesc">
+          Precio ↓
+        </option>
+        <option value="az">
+          A-Z
+        </option>
+        <option value="za">
+          Z-A
+        </option>
+      </select>
+    </div>
+  </section>
+
+  <main class="main-layout">
+
+    <section class="products-grid" id="productsContainer"></section>
+
+    <aside class="cart-panel">
+      <h2>
+        Carrito
+      </h2>
+
+      <div id="cartContainer"></div>
+
+      <div class="cart-total">
+        <span>
+          Total
+        </span>
+        <span id="cartTotal">
+          0.00€
+        </span>
+      </div>
+           <a href="carrito.html" style="color: white; text-decoration: none; width: 100%;">
+      <button class="checkout-btn">Finalizar compra
+      </button></a>
+    </aside>
+  </main>
+
+  <div class="login-modal hidden" id="loginModal">
+    <div class="login-box">
+      <button class="close-login" id="closeLogin">
+        ✕
+      </button>
+
+      <h2>
+        Iniciar sesión
+      </h2>
+      <p>
+        Accede a tu cuenta
+      </p>
+
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Usuario" required>
+        <input type="password" id="password" placeholder="Contraseña" required>
+        <button type="submit">
+          Entrar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      Proyecto Mini Ecommerce · JavaScript + Git
+    </p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

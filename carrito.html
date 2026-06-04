@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Checkout UI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --primary:#6366f1;
+  --success:#10b981;
+  --bg:#f1f5f9;
+  --text:#0f172a;
+  --muted:#64748b;
+  --border:#e2e8f0;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.container{
+  max-width:1200px;
+  margin:60px auto;
+  padding:0 20px;
+}
+
+.checkout-layout{
+  display:grid;
+  grid-template-columns:1fr 380px;
+  gap:30px;
+}
+
+.card{
+  background:white;
+  border-radius:24px;
+  padding:35px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+h1{
+  font-size:40px;
+  margin-bottom:30px;
+}
+
+h2{
+  font-size:24px;
+  margin-bottom:25px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.input-group{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.input-group.full{
+  grid-column:1/3;
+}
+
+label{
+  font-weight:600;
+}
+
+input{
+  padding:16px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:#f8fafc;
+  font-size:15px;
+  outline:none;
+}
+
+input:focus{
+  border-color:var(--primary);
+}
+
+.cart-item{
+  display:flex;
+  gap:15px;
+  padding:20px 0;
+  border-bottom:1px solid #edf2f7;
+}
+
+.cart-item img{
+  width:80px;
+  height:80px;
+  object-fit:contain;
+  background:white;
+  border-radius:12px;
+  padding:10px;
+  border:1px solid #e2e8f0;
+}
+
+.cart-item-info{
+  flex:1;
+}
+
+.cart-item-title{
+  font-weight:600;
+  margin-bottom:10px;
+  line-height:1.4;
+}
+
+.cart-item-price{
+  color:var(--muted);
+}
+
+.summary{
+  position:sticky;
+  top:30px;
+  height:fit-content;
+}
+
+.total{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:30px;
+  padding-top:20px;
+  border-top:2px solid #edf2f7;
+  font-size:26px;
+  font-weight:700;
+}
+
+.buy-btn{
+  width:100%;
+  margin-top:25px;
+  border:none;
+  background:var(--success);
+  color:white;
+  padding:18px;
+  border-radius:16px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.buy-btn:hover{
+  opacity:0.9;
+}
+
+@media(max-width:950px){
+
+  .checkout-layout{
+    grid-template-columns:1fr;
+  }
+
+  .summary{
+    position:relative;
+    top:0;
+  }
+
+}
+
+@media(max-width:700px){
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .input-group.full{
+    grid-column:auto;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+<nav style="background: #0f172a; padding: 20px 0; position: sticky; top: 0; z-index: 100;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center;">
+    <div style="font-size: 24px; font-weight: 700; color: white; cursor: pointer; font-family: 'Inter', sans-serif;" onclick="window.location.href='index.html'">
+      Mini<span style="color: #6119e8;">Shop</span>
+    </div>
+  </div>
+</nav>
+<div class="container">
+
+  <h1>Finalizar compra</h1>
+
+  <div class="checkout-layout">
+
+    <section class="card">
+      <h2>Datos de envío</h2>
+     <form id="checkoutForm">
+        <div class="form-grid">
+          <div class="input-group">
+            <label>Nombre</label>
+            <input type="text" required>
+          </div>
+          <div class="input-group">
+            <label>Apellidos</label>
+            <input type="text" required>
+          </div>
+          <div class="input-group full">
+            <label>Dirección</label>
+            <input type="text" required>
+          </div>
+          <div class="input-group">
+            <label>Ciudad</label>
+            <input type="text" required>
+          </div>
+          <div class="input-group">
+            <label>Código postal</label>
+            <input type="text" pattern="[0-9]+" title="Por favor, introduce solo números" required>
+          </div>
+          <div class="input-group">
+            <label>Teléfono</label>
+            <input type="text" pattern="[0-9]+" title="Por favor, introduce solo números" required>
+          </div>
+          <div class="input-group">
+            <label>Email</label>
+            <input type="email" required>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <aside class="card summary">
+      <h2>Tu carrito</h2>
+      
+      <div id="cartContainer"></div>
+
+      <div class="total">
+        <span>Total</span>
+        <span id="cartTotal">0.00€</span>
+      </div>
+
+      <button class="buy-btn" id="buyBtn">
+        Comprar ahora
+      </button>
+
+      <button class="buy-btn" id="checkoutBtn" style="background: var(--primary); margin-top: 10px;">
+        Volver a la tienda
+      </button>
+    </aside>
+
+  </div>
+</div>
+
+<div id="successModal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); justify-content: center; align-items: center; z-index: 999;">
+  <div style="background: white; padding: 40px; border-radius: 24px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
+    <div style="font-size: 50px; margin-bottom: 15px;">🎉</div>
+    <h2 style="margin-bottom: 10px; color: var(--text);">¡Compra realizada!</h2>
+    <p id="successMessage" style="color: var(--muted); margin-bottom: 25px; line-height: 1.5;">Tu pedido ha sido procesado con éxito.</p>
+    <button id="closeModalBtn" style="border: none; background: var(--success); color: white; padding: 12px 25px; border-radius: 12px; font-weight: 600; cursor: pointer; width: 100%;">
+      Aceptar
+    </button>
+  </div>
+</div>
+<footer style="background: #0f172a; color: white; padding: 30px 0; margin-top: 60px; text-align: center; width: 100%; clear: both; font-family: 'Inter', sans-serif;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <p style="font-size: 18px; font-weight: bold; margin-bottom: 10px; cursor: pointer; display: inline-block;" onclick="window.location.href='index.html'">
+      Mini<span style="color: #6119e8;">Shop</span>
+    </p>
+    <p style="color: #64748b; font-size: 14px;">&copy; 2026 Todos los derechos reservados.</p>
+  </div>
+</footer>
+<script src="carrito.js"></script>
+</body>
+</html>

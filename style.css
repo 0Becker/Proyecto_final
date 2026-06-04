@@ -1,0 +1,501 @@
+/* ========================================
+RESET
+======================================== */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========================================
+VARIABLES (Corregidas para mejor contraste)
+======================================== */
+:root {
+  --bg: #f1f5f9;            /* Gris claro limpio de fondo */
+  --white: #ffffff;         /* Blanco real para las tarjetas y cajas */
+  --text: #0f172a;
+  --muted: #64748b;
+  --primary: #6119e8;
+  --primary-hover: #4600e8f8;
+  --success: #10b981;
+  --danger: #ef4444;
+  --border: #cbd5e1;        /* Borde gris suave en lugar de casi negro */
+}
+
+/* ========================================
+BODY
+======================================== */
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ========================================
+NAVBAR
+======================================== */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #0f172a;
+  padding: 20px 0;
+}
+
+.nav-container {
+  width: 90%;
+  max-width: 1400px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+}
+
+.logo span {
+  color: var(--primary);
+}
+
+.nav-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.account-btn {
+  border: none;
+  background: var(--primary);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.account-btn:hover {
+  background: var(--primary-hover);
+}
+
+/* ========================================
+HERO
+======================================== */
+.hero {
+  height: 420px;
+  background: linear-gradient(
+    rgba(15,23,42,0.7),
+    rgba(15,23,42,0.7)
+  ),
+  url("https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=1400&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+.hero h1 {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.hero button {
+  border: none;
+  background: var(--primary);
+  color: white;
+  padding: 16px 30px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.hero button:hover {
+  background: var(--primary-hover);
+}
+
+/* ========================================
+FILTROS
+======================================== */
+.controls {
+  width: 90%;
+  max-width: 1400px;
+  margin: auto;
+  margin-top: -40px;
+  position: relative;
+  z-index: 20;
+}
+
+.controls-box {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 25px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+.controls input,
+.controls select {
+  flex: 1;
+  min-width: 220px;
+  padding: 15px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #f8fafc;
+  outline: none;
+}
+
+/* ========================================
+MAIN LAYOUT
+======================================== */
+.main-layout {
+  width: 90%;
+  max-width: 1400px;
+  margin: 50px auto;
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 30px;
+}
+
+/* ========================================
+PRODUCTOS
+======================================== */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+/* ========================================
+CARD PRODUCTO
+======================================== */
+.product-card {
+  background: var(--white);
+  padding: 10px;
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.3s;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.product-image {
+  height: 260px;
+  background: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.product-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.product-info {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.product-category {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.product-title {
+  text-align: left;
+  font-size: 16px;
+  margin-bottom: 15px;
+  line-height: 1.4;
+  min-height: 45px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden; /* Corta el texto si el título de la API es gigante */
+}
+
+.product-price {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ========================================
+BOTONES CARD
+======================================== */
+.add-btn {
+  flex: 1;
+  border: none;
+  background: var(--primary);
+  color: white;
+  padding: 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.add-btn:hover {
+  background: var(--primary-hover);
+}
+
+.fav-btn {
+  width: 52px;
+  border: none;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.fav-btn:hover {
+  background: #fee2e2;
+}
+
+/* ========================================
+CARRITO
+======================================== */
+.cart-panel {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 25px;
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.cart-panel h2 {
+  margin-bottom: 25px;
+  font-size: 28px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.cart-item-info {
+  flex: 1;
+  padding-right: 10px;
+}
+
+.cart-item-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.cart-item-price {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.remove-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: #fee2e2;
+  color: var(--danger);
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+}
+
+.remove-btn:hover {
+  background: var(--danger);
+  color: white;
+}
+
+.cart-total {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 2px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* ========================================
+CHECKOUT BUTTON
+======================================== */
+.checkout-btn {
+  width: 100%;
+  margin-top: 20px;
+  border: none;
+  background: var(--success);
+  color: white;
+  padding: 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.checkout-btn:hover {
+  opacity: 0.9;
+}
+
+/* ========================================
+LOGIN MODAL
+======================================== */
+.login-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6); /* Backdrop oscuro y traslúcido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.login-modal.hidden {
+  display: none;
+}
+
+.login-box {
+  width: 90%;
+  max-width: 420px;
+  background: var(--white);
+  padding: 40px;
+  border-radius: 28px;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.login-box h2 {
+  font-size: 34px;
+  margin-bottom: 10px;
+}
+
+.login-box p {
+  color: var(--muted);
+  margin-bottom: 25px;
+}
+
+.login-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-box input {
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #f8fafc;
+  outline: none;
+}
+
+.login-box button[type="submit"] {
+  border: none;
+  background: var(--primary);
+  color: white;
+  padding: 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.login-box button[type="submit"]:hover {
+  background: var(--primary-hover);
+}
+
+.close-login {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  background: #f1f5f9;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.close-login:hover {
+  background: #e2e8f0;
+}
+
+
+/* ========================================
+FOOTER
+======================================== */
+footer {
+  margin-top: 50px;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+  padding: 25px;
+}
+
+/* ========================================
+RESPONSIVE
+======================================== */
+@media(max-width: 1100px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width: 768px) {
+  .hero h1 {
+    font-size: 42px;
+  }
+}
